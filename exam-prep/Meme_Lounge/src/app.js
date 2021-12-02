@@ -5,13 +5,11 @@ import { loginPage } from './views/login.js';
 import { registerPage } from './views/register.js';
 import { createPage } from './views/create.js';
 import { detailsPage } from './views/details.js';
+import { editPage } from './views/edit.js';
+import { profilePage } from './views/profile.js';
+import { logout } from './api/api.js';
+import { getUserData } from './util.js';
 
-
-/* debug */
-import * as api from './api/data.js'
-import { get, logout } from './api/api.js';
-import { clearUserData, getUserData } from './util.js';
-window.api = api
 
 
 
@@ -28,6 +26,9 @@ page('/login', loginPage)
 page('/register', registerPage)
 page('/create', createPage)
 page('/details/:id', detailsPage)
+page('/edit/:id', editPage)
+page('/profile', profilePage)
+
 
 updateUserNav()
 page.start()
@@ -43,6 +44,7 @@ function decorateContext(ctx, next){
 function onLogout(){
   logout()
   updateUserNav()
+  page.redirect('/');
 }
 
 function updateUserNav(){
