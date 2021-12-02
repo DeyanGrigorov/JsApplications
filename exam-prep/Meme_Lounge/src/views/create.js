@@ -28,7 +28,7 @@ export function createPage(ctx){
   async function onSubmit(event){
     event.preventDefault();
     const formData = new FormData(event.target)
-f
+
     const title = formData.get('title')
     const description = formData.get('description')
     const imageUrl = formData.get('imageUrl')

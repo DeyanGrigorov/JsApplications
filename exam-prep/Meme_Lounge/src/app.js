@@ -4,6 +4,7 @@ import { catalogPage } from './views/catalog.js';
 import { loginPage } from './views/login.js';
 import { registerPage } from './views/register.js';
 import { createPage } from './views/create.js';
+import { detailsPage } from './views/details.js';
 
 
 /* debug */
@@ -26,6 +27,7 @@ page('/memes', catalogPage);
 page('/login', loginPage)
 page('/register', registerPage)
 page('/create', createPage)
+page('/details/:id', detailsPage)
 
 updateUserNav()
 page.start()

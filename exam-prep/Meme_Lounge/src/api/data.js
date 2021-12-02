@@ -12,3 +12,10 @@ export async function createMeme(meme){
   return api.post('/data/memes', meme);
 }
 
+export async function getMemeById(id){
+  return api.get('/data/memes/'+id);
+}
+
+export async function deleteById(id){
+  return api.del('/data/memes/' + id);
+}
