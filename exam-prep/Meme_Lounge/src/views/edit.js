@@ -1,6 +1,6 @@
-import { getMemeById } from '../api/data.js';
-import { html } from '../lib.js';
-import { editMeme } from '../api/data.js';
+import { getMemeById } from "../api/data.js";
+import { html } from "../lib.js";
+import { editMeme } from "../api/data.js";
 
 const editTemplate = (meme, onSubmit) => html`
    <section id="edit-meme">
@@ -19,27 +19,26 @@ const editTemplate = (meme, onSubmit) => html`
                 </div>
             </form>
         </section>
-`
+`;
 
+export async function editPage(ctx) {
+  const meme = await getMemeById(ctx.params.id);
 
-export async function editPage(ctx){
-  const meme = await getMemeById(ctx.params.id)
+  ctx.render(editTemplate(meme, onSubmit));
 
-  ctx.render(editTemplate(meme, onSubmit))
-
-  async function onSubmit(event){
+  async function onSubmit(event) {
     event.preventDefault();
-    const formData = new FormData(event.target)
+    const formData = new FormData(event.target);
 
-    const title = formData.get('title')
-    const description = formData.get('description')
-    const imageUrl = formData.get('imageUrl')
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const imageUrl = formData.get("imageUrl");
 
-
-    if (title == '' || imageUrl == '' || description == ''){
-      return alert('All fields are required')
+    if (title == "" || imageUrl == "" || description == "") {
+      return alert("All fields are required");
     }
 
-    await editMeme(ctx.params.id, {title,description,imageUrl})
-    ctx.page.redirect('/memes')}
+    await editMeme(ctx.params.id, { title, description, imageUrl });
+    ctx.page.redirect("/memes");
+  }
 }

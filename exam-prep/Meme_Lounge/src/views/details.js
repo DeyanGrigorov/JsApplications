@@ -1,6 +1,6 @@
-import { deleteById, getMemeById } from '../api/data.js';
-import { html } from '../lib.js';
-import { getUserData } from '../util.js';
+import { deleteById, getMemeById } from "../api/data.js";
+import { html } from "../lib.js";
+import { getUserData } from "../util.js";
 
 const detailsTemplate = (meme, isOwner, onDelete) => html`
   <section id="meme-details">
@@ -17,30 +17,33 @@ const detailsTemplate = (meme, isOwner, onDelete) => html`
                         ${meme.description}
                     </p>
 
-                    ${isOwner ? html`
+                    ${isOwner
+                      ? html`
                     <a class="button warning" href="/edit/${meme._id}">Edit</a>
-                    <button @click=${onDelete} class="button danger">Delete</button>` : null}
+                    <button @click=${onDelete} class="button danger">Delete</button>`
+                      : null}
                   
                 </div>
             </div>
         </section>
-        `
+        `;
 
-
-export async function detailsPage(ctx){
-  const meme  = await getMemeById(ctx.params.id)
+export async function detailsPage(ctx) {
+  const meme = await getMemeById(ctx.params.id);
 
   const userData = getUserData();
   const isOwner = userData && meme._ownerId == userData.id;
 
-  ctx.render(detailsTemplate(meme, isOwner, onDelete))
+  ctx.render(detailsTemplate(meme, isOwner, onDelete));
 
-  async function onDelete(){
-    const choice = confirm('Are you sure you want to delete this meme FOREVER?')
+  async function onDelete() {
+    const choice = confirm(
+      "Are you sure you want to delete this meme FOREVER?"
+    );
 
-    if (choice){
+    if (choice) {
       await deleteById(ctx.params.id);
-      ctx.page.redirect('/memes')
+      ctx.page.redirect("/memes");
     }
   }
 }
